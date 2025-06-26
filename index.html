@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nearest Women & Children Hospital Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 100px; }
+    button { padding: 15px 25px; font-size: 18px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>Find Nearest Women & Children Hospital</h2>
+  <button onclick="findHospital()">Find Hospital</button>
+
+  <script>
+    const hospital = { 
+      name: "RGGW&CH", 
+      lat: 11.9377, 
+      lng: 79.80696 
+    };
+
+    function findHospital() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const userLat = position.coords.latitude;
+          const userLng = position.coords.longitude;
+
+          // Direct user to hospital on Google Maps
+          const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${hospital.lat},${hospital.lng}&travelmode=driving`;
+          window.location.href = mapsUrl;
+
+        }, () => {
+          alert("Location access denied.");
+        });
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+  </script>
+</body>
+</html>
